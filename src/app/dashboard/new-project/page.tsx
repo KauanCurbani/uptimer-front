@@ -17,6 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useProject } from "@/context/project-context";
 import { api } from "@/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -33,7 +34,8 @@ type FormSchema = z.infer<typeof schema>;
 
 function Page() {
   const router = useRouter();
-  const { mutate, isPending } = useMutation({
+  const {getProjects} = useProject()
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: (data: FormSchema) => api.post("/projects", data),
     onError(error) {
       toast.error("Error creating project", {
@@ -56,7 +58,8 @@ function Page() {
   });
 
   const onSubmit = async (data: FormSchema) => {
-    mutate(data);
+    await mutateAsync(data);
+    await getProjects();
   };
 
   return (

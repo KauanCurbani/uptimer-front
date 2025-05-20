@@ -2,13 +2,11 @@
 
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
   Command,
   GalleryVerticalEnd,
   LayoutDashboardIcon,
   Settings2,
-  SquareTerminal,
+  TargetIcon
 } from "lucide-react";
 import * as React from "react";
 
@@ -53,64 +51,18 @@ const data = {
       icon: LayoutDashboardIcon,
     },
     {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
+      title: "Targets",
+      url: "/dashboard/targets",
+      icon: TargetIcon,
       isActive: true,
       items: [
         {
-          title: "History",
-          url: "#",
+          title: "All Targets",
+          url: "/dashboard/targets",
         },
         {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
+          title: "New Target",
+          url: "/dashboard/targets/new",
         },
       ],
     },

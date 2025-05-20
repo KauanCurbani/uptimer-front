@@ -1,7 +1,8 @@
 "use client";
 
 import { api } from "@/lib/api";
-import React from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import React, { useEffect } from "react";
 
 export interface Project {
   id: string;
@@ -13,7 +14,7 @@ interface ProjectContextData {
   projects: Project[];
   selectedProject: Project | null;
   setSelectedProject: (project: Project) => void;
-  getProjects: () => Promise<void>;
+  getProjects: () => Promise<Project[]>;
   loading: boolean;
 }
 
@@ -23,14 +24,36 @@ export const ProjectProvider = ({ children }: { children: React.ReactNode }) => 
   const [projects, setProjects] = React.useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = React.useState<Project | null>(null);
   const [loading, setLoading] = React.useState(true);
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ["targets"] });
+    if (selectedProject) {
+      localStorage.setItem("selectedProject", JSON.stringify(selectedProject));
+    }
+  }, [selectedProject]);
+
+  useEffect(() => {
+    const local = localStorage.getItem("selectedProject");
+    if (local && projects.length > 0) {
+      console.log("local", local);
+      const index = projects.findIndex((project) => project.id === JSON.parse(local)?.id);
+      if (index !== -1) {
+        setSelectedProject(projects[index]);
+      } else {
+        setSelectedProject(projects[0]);
+      }
+    } else if (projects.length > 0) {
+      setSelectedProject(projects[0]);
+    }
+  }, [projects]);
 
   async function getProjects() {
     setLoading(true);
     try {
       const { data } = await api.get("/projects");
       setProjects(data);
-    } catch (error) {
-      console.error("Error fetching projects:", error);
+      return data;
     } finally {
       setLoading(false);
     }
