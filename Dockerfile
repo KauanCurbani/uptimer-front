@@ -7,5 +7,5 @@ RUN bun run build
 FROM oven/bun:alpine as runner
 WORKDIR /app
 COPY --from=base /app ./
-EXPOSE 3000
+EXPOSE 3333
 CMD ["bun", "run", "start"]
