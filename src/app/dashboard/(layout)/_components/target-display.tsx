@@ -8,6 +8,8 @@ import { api } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircleIcon } from "lucide-react";
 
 const SIZE = 35;
 
@@ -45,11 +47,13 @@ function TargetDisplay({ target }: { target: Target }) {
     }
   }, [data]);
 
+  const errors = data?.filter((log) => log.errorMessage).splice(0, 3);
+
   return (
     <Card className="mx-auto w-full max-w-2xl">
       <CardContent>
         <div className="flex items-center justify-between mb-2">
-          <h2 className="font-md">{target.url}</h2>
+          <h2 className="font-md truncate">{target.url}</h2>
           <div className="flex gap-2">
             <span
               className={cn(
@@ -61,7 +65,7 @@ function TargetDisplay({ target }: { target: Target }) {
             </span>
             <span
               className={cn(
-                "text-sm font-medium px-1 rounded-lg",
+                "text-sm font-medium px-1 rounded-lg whitespace-nowrap",
                 target.lastIsUp ? "text-green-700 bg-green-500/10" : "text-red-700 *:bg-red-500/10 "
               )}
             >
@@ -93,6 +97,18 @@ function TargetDisplay({ target }: { target: Target }) {
                 </Tooltip>
               );
             })}
+        </div>
+        <div className="flex flex-col gap-2 mt-4">
+          {errors &&
+            errors.map((log) => (
+              <Alert key={log.id} variant="destructive">
+                <AlertCircleIcon className="h-4 w-4" />
+                <AlertTitle>{log.errorMessage}</AlertTitle>
+                <AlertDescription>
+                  {new Date(log.timestamp).toLocaleString("pt-BR")}
+                </AlertDescription>
+              </Alert>
+            ))}
         </div>
       </CardContent>
     </Card>

@@ -61,7 +61,7 @@ function Page() {
     defaultValues: {
       url: "",
       method: "GET",
-      checkIntervalMinutes: 1,
+      checkIntervalMinutes: 30,
     },
   });
 
@@ -125,9 +125,9 @@ function Page() {
                   <div className="flex items-center gap-2">
                     <Slider
                       defaultValue={[field.value]}
-                      min={1}
-                      max={60}
-                      step={1}
+                      min={30}
+                      max={120}
+                      step={5}
                       onValueChange={(value) => field.onChange(value[0])}
                       value={[field.value]}
                     />

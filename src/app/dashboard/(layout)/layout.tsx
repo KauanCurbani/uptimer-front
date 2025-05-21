@@ -65,7 +65,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        <div className="px-6 w-full">{children}</div>
+        <div className="p-6 w-full">{children}</div>
       </main>
     </SidebarProvider>
   );
