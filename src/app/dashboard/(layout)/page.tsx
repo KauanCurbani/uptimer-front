@@ -36,7 +36,7 @@ function Page() {
   });
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 mx-auto max-w-3xl w-full">
       {targets?.length === 0 && (
         <div className="text-center text-muted-foreground">
           No targets found. Create a new target to get started.
@@ -47,7 +47,7 @@ function Page() {
         new Array(3)
           .fill(0)
           .map((_, index) => (
-            <Skeleton key={index} className="h-44 mx-auto w-full max-w-2xl rounded" />
+            <Skeleton key={index} className="h-44 w-full rounded" />
           ))}
       {targets?.map((target) => (
         <TargetDisplay key={target.id} target={target} />

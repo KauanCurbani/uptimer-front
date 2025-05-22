@@ -24,6 +24,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setIsAuthenticated(true);
     }
     setLoading(false);
+
+    api.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        if (error.response.status === 401) {
+          localStorage.removeItem("token");
+          delete api.defaults.headers.common["Authorization"];
+          setIsAuthenticated(false);
+        }
+        return Promise.reject(error);
+      }
+    );
   }, []);
 
   const signIn = async (token: string) => {

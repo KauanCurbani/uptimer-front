@@ -44,7 +44,7 @@ function TargetDisplay({ target }: { target: Target }) {
   const minLatency = Math.min(...(data?.map((log) => log.responseTimeMs) || []));
 
   return (
-    <Card className="mx-auto w-full max-w-2xl">
+    <Card className="w-full">
       <CardContent>
         <div className="flex items-center justify-between mb-2">
           <Link

@@ -71,7 +71,7 @@ function Page() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-2xl flex flex-col">
+    <div className="mx-auto w-full max-w-3xl flex flex-col">
       <h1 className="font-bold text-xl">New Target</h1>
       <p className="text-muted-foreground mb-4 text-sm">
         Add a new target to monitor. You can choose the URL, HTTP method, and check interval.
